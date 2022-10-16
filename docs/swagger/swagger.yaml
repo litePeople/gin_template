@@ -1,0 +1,2605 @@
+definitions:
+  dto.AppletsCallbackDta:
+    properties:
+      CreateTime:
+        description: 发送时间
+        type: integer
+      Event:
+        description: 默认为：wxa_media_check
+        type: string
+      FromUserName:
+        description: 平台推送服务UserName
+        type: string
+      MsgType:
+        description: 默认为：Event
+        type: string
+      ToUserName:
+        description: 小程序的username
+        type: string
+      appid:
+        description: 小程序的appid
+        type: string
+      detail:
+        description: 详细检测结果
+        items:
+          properties:
+            errcode:
+              type: integer
+            label:
+              description: |-
+                命中标签
+                100-正常
+                10001-广告
+                20001-时政
+                20002-色情
+                20003-辱骂
+                20006-违法犯罪
+                20008-欺诈
+                20012-低俗
+                20013-版权
+                21000-其他
+              type: integer
+            prob:
+              type: integer
+            strategy:
+              type: string
+            suggest:
+              description: |-
+                建议
+                risky-建议
+                pass-安全
+                review-需要审查
+              type: string
+          type: object
+        type: array
+      errcode:
+        type: integer
+      errmsg:
+        type: string
+      result:
+        description: 综合结果
+        properties:
+          label:
+            description: |-
+              命中标签
+              100-正常
+              10001-广告
+              20001-时政
+              20002-色情
+              20003-辱骂
+              20006-违法犯罪
+              20008-欺诈
+              20012-低俗
+              20013-版权
+              21000-其他
+            type: integer
+          suggest:
+            description: |-
+              建议
+              risky-建议
+              pass-安全
+              review-需要审查
+            type: string
+        type: object
+      trace_id:
+        description: 任务id
+        type: string
+      version:
+        description: 可用于区分接口版本
+        type: integer
+    type: object
+  dto.AppletsParseReq:
+    properties:
+      originalContent:
+        description: 原始内容
+        type: string
+      wxid:
+        description: 微信用户id
+        maxLength: 255
+        type: string
+    required:
+    - originalContent
+    - wxid
+    type: object
+  dto.ComplaintRecordCreateReq:
+    properties:
+      complaintUserId:
+        description: 投诉用户id
+        minimum: 1
+        type: integer
+      desc:
+        description: 投诉详情
+        maxLength: 300
+        type: string
+      images:
+        description: 图片数组，多个用英文字符的 ; 间隔开
+        example: https://www.baidu.com/1.jpg;https://www.baidu.com/1.jpg
+        type: string
+      taskId:
+        description: 用户id
+        minimum: 1
+        type: integer
+    required:
+    - complaintUserId
+    - desc
+    - taskId
+    type: object
+  dto.ComplaintRecordStateReq:
+    properties:
+      complaintRecordId:
+        description: 投诉记录id
+        minimum: 1
+        type: integer
+      state:
+        description: |-
+          成立状态
+          1-成立
+          2-不成立
+        enum:
+        - 1
+        - 2
+        type: integer
+    required:
+    - complaintRecordId
+    - state
+    type: object
+  dto.ConfigVersionReq:
+    properties:
+      version:
+        description: 版本
+        maxLength: 10
+        type: string
+    type: object
+  dto.FeedbackCreateReq:
+    properties:
+      content:
+        description: 内容
+        type: string
+      image:
+        description: 图片
+        maxLength: 300
+        type: string
+    required:
+    - content
+    - image
+    type: object
+  dto.IMRecordCreateReq:
+    properties:
+      category:
+        description: |-
+          类别
+          10-文本
+          20-图片
+          30-视频
+        enum:
+        - 10
+        - 20
+        - 30
+        type: integer
+      content:
+        description: 内容
+        maxLength: 300
+        type: string
+      taskReceiveId:
+        description: 任务接取id
+        minimum: 1
+        type: integer
+    required:
+    - category
+    - content
+    - taskReceiveId
+    type: object
+  dto.MinWxLoginReq:
+    properties:
+      code:
+        description: 微信小程序登录的code
+        maxLength: 50
+        type: string
+      encryptedData:
+        description: 用户信息的加密数据
+        type: string
+      fromCode:
+        description: 邀请码
+        maxLength: 50
+        type: string
+      hash:
+        description: 通过session2code方法，返回的数据加密的一段文本，防止数据篡改
+        maxLength: 50
+        type: string
+      iv:
+        description: 加密数据的iv
+        type: string
+      openid:
+        description: openid，有session key的时候该值不能为空
+        maxLength: 255
+        type: string
+      sessionKey:
+        description: Session Key
+        maxLength: 50
+        type: string
+      unionid:
+        description: unionid key的时候该值不能为空
+        maxLength: 255
+        type: string
+    required:
+    - encryptedData
+    - iv
+    type: object
+  dto.MinWxLoginRsp:
+    properties:
+      avatar:
+        description: 头像
+        type: string
+      cashableIntegral:
+        description: 可兑现的积分
+        type: integer
+      city:
+        description: 市
+        type: string
+      code:
+        description: 邀请码
+        type: string
+      country:
+        description: 国家
+        type: string
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      dynamic:
+        description: 动态
+        type: string
+      fromCode:
+        description: 邀请码
+        type: string
+      gender:
+        description: |-
+          0-未知
+          1-男
+          2-女
+        type: integer
+      gzhid:
+        description: 公众号id
+        type: string
+      helpTotal:
+        description: 助力别人的次数
+        type: integer
+      id:
+        type: integer
+      integral:
+        description: 不可兑现积分
+        type: integer
+      isBlack:
+        description: |-
+          是否黑名单
+          true-是
+          false-不是
+        type: boolean
+      isCustomerService:
+        description: |-
+          是否客服
+          true-是
+          false-不是
+        type: boolean
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      isSubscribeMsg:
+        description: |-
+          是否订阅消息
+          true-已经订阅
+          false-没有订阅
+        type: boolean
+      lastLoginIp:
+        description: 上次登录的IP
+        type: string
+      lastLoginTime:
+        description: 上次登录的时间戳
+        type: integer
+      lastSignInTime:
+        description: 上次签到的时间
+        type: integer
+      nickname:
+        description: 昵称
+        type: string
+      openid:
+        description: 小程序openid
+        type: string
+      path:
+        description: 邀请码的链路，存储用户的邀请码，每个邀请码用英文字符的,间隔开
+        type: string
+      phone:
+        description: 没有区号的手机号码
+        type: string
+      phoneCountryCode:
+        description: 手机号码的国家码/区号
+        type: string
+      province:
+        description: 省
+        type: string
+      signInIntegral:
+        description: 签到总积分
+        type: integer
+      successiveSignInTotal:
+        description: 连续签到的次数
+        type: integer
+      takeGzhIntegral:
+        description: |-
+          领取公众号积分
+          true-已领取
+          false-未领取
+        type: boolean
+      takeInitialIntegral:
+        description: |-
+          领取初始积分
+          true-已领取
+          false-未领取
+        type: boolean
+      token:
+        description: token 信息
+        type: string
+      unionid:
+        description: 开放平台的unionid
+        type: string
+      updateTime:
+        description: 更新时间
+        type: integer
+      wxid:
+        description: 微信用户id
+        type: string
+    type: object
+  dto.TaskCreateReq:
+    properties:
+      content:
+        description: 内容
+        type: string
+      endTime:
+        description: 结束时间戳，秒级别
+        format: 10位时间戳
+        maximum: 9999999999
+        minimum: 1000000000
+        type: integer
+      helps:
+        description: 助力数组
+        items:
+          $ref: '#/definitions/models.Help'
+        type: array
+      image:
+        description: 图片
+        maxLength: 300
+        type: string
+      labelId:
+        description: 标签id
+        items:
+          minimum: 1
+          type: integer
+        minItems: 1
+        type: array
+      receiveTotal:
+        description: 已接数量
+        minimum: 1
+        type: integer
+      taskTotal:
+        description: 任务数量
+        minimum: 1
+        type: integer
+    required:
+    - content
+    - endTime
+    - image
+    - labelId
+    - receiveTotal
+    - taskTotal
+    type: object
+  dto.TaskIncrTaskTotalReq:
+    properties:
+      incrTaskTotal:
+        description: 任务数量的增量，小于 0 则减少任务数量，大于 0 则增加任务数量
+        type: integer
+      taskId:
+        description: 任务id
+        minimum: 1
+        type: integer
+    required:
+    - taskId
+    type: object
+  dto.TaskReceiveArrearsStateReq:
+    properties:
+      state:
+        description: |-
+          是否欠费
+          true-欠费
+          false-不欠费
+        type: boolean
+      taskReceiveId:
+        description: 任务接单id
+        minimum: 1
+        type: integer
+    required:
+    - taskReceiveId
+    type: object
+  dto.TaskReceiveStateReq:
+    properties:
+      memo:
+        description: 备注
+        maxLength: 300
+        type: string
+      state:
+        description: |-
+          发起人状态
+          20-已互
+          30-接单人审核完成
+          接单人状态
+          20-已互
+          30-发起人审核完成
+          40-取消
+        enum:
+        - 20
+        - 30
+        - 40
+        type: integer
+      taskReceiveId:
+        description: 任务接单id
+        minimum: 1
+        type: integer
+    required:
+    - memo
+    - state
+    - taskReceiveId
+    type: object
+  dto.TaskReceiveTakeReq:
+    properties:
+      taskId:
+        description: 任务id
+        minimum: 1
+        type: integer
+    required:
+    - taskId
+    type: object
+  dto.TaskStopReq:
+    properties:
+      taskId:
+        description: 任务id
+        minimum: 1
+        type: integer
+    required:
+    - taskId
+    type: object
+  dto.UserParsePhoneReq:
+    properties:
+      code:
+        description: 获取手机号的code
+        type: string
+      encryptedData:
+        description: 加密消息的hash
+        type: string
+      iv:
+        type: string
+    required:
+    - code
+    - encryptedData
+    - iv
+    type: object
+  dto.UserUpdateReq:
+    properties:
+      avatar:
+        description: 头像
+        maxLength: 300
+        type: string
+      city:
+        description: 市
+        maxLength: 50
+        type: string
+      country:
+        description: 国家
+        maxLength: 50
+        type: string
+      dynamic:
+        description: 动态
+        type: string
+      gender:
+        description: |-
+          性别
+          0-未知
+          1-男
+          2-女
+        enum:
+        - 0
+        - 1
+        - 2
+        type: integer
+      isSubscribeMsg:
+        description: |-
+          是否订阅消息
+          true-已经订阅
+          false-没有订阅
+        type: boolean
+      nickname:
+        description: 昵称
+        maxLength: 255
+        type: string
+      province:
+        description: 省
+        maxLength: 50
+        type: string
+    type: object
+  dto.WxBindingCreateReq:
+    properties:
+      code:
+        description: 用户的编码
+        maxLength: 50
+        type: string
+      wxid:
+        description: 微信用户id
+        maxLength: 255
+        type: string
+    required:
+    - code
+    - wxid
+    type: object
+  dto.WxCode2SessionReq:
+    properties:
+      code:
+        description: 微信小程序登录的code
+        maxLength: 50
+        type: string
+    required:
+    - code
+    type: object
+  dto.WxCode2SessionRsp:
+    properties:
+      hash:
+        type: string
+      openid:
+        description: 小程序id
+        type: string
+      sessionKey:
+        description: session key
+        type: string
+      unionid:
+        type: string
+    type: object
+  ginx.Resp:
+    properties:
+      code:
+        description: |-
+          状态码
+          200-正确
+        type: integer
+      data:
+        description: 返回数据
+      message:
+        description: 错误消息
+        type: string
+    type: object
+  models.AppletsParse:
+    properties:
+      appletsAppid:
+        description: 小程序appid
+        type: string
+      appletsDesc:
+        description: 小程序说明
+        type: string
+      appletsIcon:
+        description: 小程序图标
+        type: string
+      appletsPath:
+        description: 小程序路径
+        type: string
+      appletsTitle:
+        description: 小程序标题
+        type: string
+      appletsUserName:
+        description: 小程序名称
+        type: string
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      id:
+        type: integer
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      updateTime:
+        description: 更新时间
+        type: integer
+      userId:
+        description: 用户id
+        type: integer
+      wxid:
+        description: 微信用户id
+        type: string
+    type: object
+  models.ComplaintRecord:
+    properties:
+      ComplaintUser:
+        $ref: '#/definitions/models.User'
+        description: 被投诉的用户
+      complaintUserId:
+        description: 被投诉的用户
+        type: integer
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      desc:
+        description: 投诉详情
+        type: string
+      id:
+        type: integer
+      images:
+        description: 图片数组，多个用英文字符的 ; 间隔开
+        type: string
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      state:
+        description: |-
+          成立状态
+          0-未处理
+          1-成立
+          2-不成立
+        type: integer
+      task:
+        $ref: '#/definitions/models.Task'
+        description: 任务
+      taskId:
+        description: 任务id
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: integer
+      user:
+        $ref: '#/definitions/models.User'
+        description: 发起投诉的用户
+      userId:
+        description: 发起投诉的用户
+        type: integer
+    type: object
+  models.Enclosure:
+    properties:
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      extName:
+        description: 扩展名
+        type: string
+      id:
+        type: integer
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      md5:
+        description: 文件的md5
+        type: string
+      name:
+        description: 文件名
+        type: string
+      ossPath:
+        description: oss的路径
+        type: string
+      traceLabel:
+        description: 违规检测的信息
+        type: string
+      traceState:
+        description: |-
+          违规检测的状态
+          0-未提交违规检测
+          1-不合规
+          2-合规
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: integer
+    type: object
+  models.Feedback:
+    properties:
+      content:
+        description: 内容
+        type: string
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      id:
+        type: integer
+      image:
+        description: 图片
+        type: string
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      processResult:
+        description: 处理结果
+        type: string
+      state:
+        description: 是否已处理
+        type: boolean
+      updateTime:
+        description: 更新时间
+        type: integer
+      userId:
+        description: 用户id
+        type: integer
+    type: object
+  models.Help:
+    properties:
+      category:
+        description: |-
+          类别
+          10-口令
+          20-二维码
+          30-连接
+          40-小程序
+        enum:
+        - 10
+        - 20
+        - 30
+        - 40
+        type: integer
+      content:
+        description: 内容
+        maxLength: 300
+        type: string
+      memo:
+        description: 描述
+        type: string
+    required:
+    - category
+    - content
+    type: object
+  models.IMRecord:
+    properties:
+      category:
+        description: |-
+          类别
+          10-文本
+          20-图片
+          30-视频
+        type: integer
+      content:
+        description: 内容
+        type: string
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      id:
+        type: integer
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      taskReceiveId:
+        description: 关联任务接收id
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: integer
+      user:
+        $ref: '#/definitions/models.User'
+        description: 用户信息
+      userId:
+        description: 用户id
+        type: integer
+    type: object
+  models.IntegralRecord:
+    properties:
+      category:
+        description: |-
+          分类
+          1-任务
+          2-邀请
+          999-其他
+        type: integer
+      class:
+        description: |-
+          类型
+          1-初始积分
+          2-系统扣除积分
+          3-系统增加积分
+          4-关注公众号
+          5-绑定机器人
+          6-签到
+          7-邀请好友
+          8-助力
+          9-发起
+          10-置顶
+          11-被投诉
+        type: integer
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      desc:
+        description: 描述
+        type: string
+      id:
+        type: integer
+      integral:
+        description: 积分，大于0代表增加，小于0代表减少
+        type: integer
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      updateTime:
+        description: 更新时间
+        type: integer
+      userId:
+        description: 用户id
+        type: integer
+    type: object
+  models.Label:
+    properties:
+      color:
+        description: 颜色
+        example: '#FFEEAA'
+        type: string
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      icon:
+        description: 图标
+        type: string
+      id:
+        type: integer
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      memo:
+        description: 备注
+        type: string
+      name:
+        description: 名称
+        type: string
+      updateTime:
+        description: 更新时间
+        type: integer
+    type: object
+  models.Task:
+    properties:
+      content:
+        description: 内容
+        type: string
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      endTime:
+        description: 结束时间
+        type: integer
+      helps:
+        description: 助力数组，存json字符串
+        type: string
+      id:
+        type: integer
+      image:
+        description: 图片
+        type: string
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      receiveTotal:
+        description: 已接数量
+        type: integer
+      state:
+        description: |-
+          状态
+          10-进行中
+          20-已停止
+        type: integer
+      taskLabel:
+        description: 任务标签
+        items:
+          $ref: '#/definitions/models.TaskLabel'
+        type: array
+      taskTotal:
+        description: 任务数量
+        type: integer
+      topIntegral:
+        description: 置顶积分
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: integer
+      userId:
+        description: 用户id
+        type: integer
+    type: object
+  models.TaskLabel:
+    properties:
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      id:
+        type: integer
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      label:
+        $ref: '#/definitions/models.Label'
+        description: 标签
+      labelId:
+        description: 标签id
+        type: integer
+      taskId:
+        description: 任务id
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: integer
+    type: object
+  models.TaskReceive:
+    properties:
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      id:
+        type: integer
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      sponsorArrearsState:
+        description: |-
+          发起人欠费状态
+          true-欠费
+          false-不欠费
+        type: boolean
+      sponsorId:
+        description: 发起人的id
+        type: integer
+      sponsorMemo:
+        description: 发起人备注
+        type: string
+      sponsorState:
+        description: |-
+          发起人状态
+          10-任务已被接取
+          20-已互
+          30-接单人审核完成
+        type: integer
+      sponsorStateTime:
+        description: 发起人状态时间
+        type: integer
+      takerArrearsState:
+        description: |-
+          接单人欠费状态
+          true-欠费
+          false-不欠费
+        type: boolean
+      takerId:
+        description: 接单人的id
+        type: integer
+      takerMemo:
+        description: 接单人备注
+        type: string
+      takerState:
+        description: |-
+          接单人状态
+          10-已接取任务
+          20-已互
+          30-发起人审核完成
+          40-取消
+        type: integer
+      takerStateTime:
+        description: 接单人状态时间
+        type: integer
+      task:
+        $ref: '#/definitions/models.Task'
+        description: 任务
+      taskId:
+        description: 任务id
+        type: integer
+      updateTime:
+        description: 更新时间
+        type: integer
+    type: object
+  models.User:
+    properties:
+      avatar:
+        description: 头像
+        type: string
+      cashableIntegral:
+        description: 可兑现的积分
+        type: integer
+      city:
+        description: 市
+        type: string
+      code:
+        description: 邀请码
+        type: string
+      country:
+        description: 国家
+        type: string
+      createTime:
+        description: 注册时间
+        type: integer
+      deleteTime:
+        description: 删除时间
+        type: integer
+      dynamic:
+        description: 动态
+        type: string
+      fromCode:
+        description: 邀请码
+        type: string
+      gender:
+        description: |-
+          0-未知
+          1-男
+          2-女
+        type: integer
+      gzhid:
+        description: 公众号id
+        type: string
+      helpTotal:
+        description: 助力别人的次数
+        type: integer
+      id:
+        type: integer
+      integral:
+        description: 不可兑现积分
+        type: integer
+      isBlack:
+        description: |-
+          是否黑名单
+          true-是
+          false-不是
+        type: boolean
+      isCustomerService:
+        description: |-
+          是否客服
+          true-是
+          false-不是
+        type: boolean
+      isDeleted:
+        description: 是否已经删除
+        type: boolean
+      isSubscribeMsg:
+        description: |-
+          是否订阅消息
+          true-已经订阅
+          false-没有订阅
+        type: boolean
+      lastLoginIp:
+        description: 上次登录的IP
+        type: string
+      lastLoginTime:
+        description: 上次登录的时间戳
+        type: integer
+      lastSignInTime:
+        description: 上次签到的时间
+        type: integer
+      nickname:
+        description: 昵称
+        type: string
+      openid:
+        description: 小程序openid
+        type: string
+      path:
+        description: 邀请码的链路，存储用户的邀请码，每个邀请码用英文字符的,间隔开
+        type: string
+      phone:
+        description: 没有区号的手机号码
+        type: string
+      phoneCountryCode:
+        description: 手机号码的国家码/区号
+        type: string
+      province:
+        description: 省
+        type: string
+      signInIntegral:
+        description: 签到总积分
+        type: integer
+      successiveSignInTotal:
+        description: 连续签到的次数
+        type: integer
+      takeGzhIntegral:
+        description: |-
+          领取公众号积分
+          true-已领取
+          false-未领取
+        type: boolean
+      takeInitialIntegral:
+        description: |-
+          领取初始积分
+          true-已领取
+          false-未领取
+        type: boolean
+      unionid:
+        description: 开放平台的unionid
+        type: string
+      updateTime:
+        description: 更新时间
+        type: integer
+      wxid:
+        description: 微信用户id
+        type: string
+    type: object
+host: www.xxx.cn
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: |-
+    小程序的互补助手的接口文档
+    错误码的含义：
+    错误码：1001，含义：参数错误
+    错误码：1002，含义：业务层错误
+    错误码：1003，含义：未登录
+    错误码：1004，含义：wxid重复绑定
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger 互补助手 API
+  version: "1.0"
+paths:
+  /v1/api/applets/callback:
+    get:
+      consumes:
+      - application/json
+      description: 小程序数据回调的签名
+      operationId: APIAppletsCallback
+      parameters:
+      - description: 微信加密签名，signature结合了开发者填写的 token 参数和请求中的 timestamp 参数、nonce参数。
+        in: query
+        name: signature
+        required: true
+        type: string
+      - description: 时间戳
+        in: query
+        name: timestamp
+        required: true
+        type: string
+      - description: 随机数
+        in: query
+        name: nonce
+        required: true
+        type: string
+      - description: 随机字符串
+        in: query
+        name: echostr
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      summary: 小程序数据回调的签名
+      tags:
+      - API Client
+      - API Client的小程序管理
+    post:
+      consumes:
+      - application/json
+      description: 小程序数据回调的数据
+      operationId: APIAppletsCallback
+      parameters:
+      - description: 值为：aes 表示是安全模式
+        in: query
+        name: encrypt_type
+        required: true
+        type: string
+      - description: 小程序id
+        in: query
+        name: openid
+        required: true
+        type: string
+      - description: 时间戳
+        in: query
+        name: timestamp
+        required: true
+        type: string
+      - description: 随机数
+        in: query
+        name: nonce
+        required: true
+        type: string
+      - description: 消息的签名
+        in: query
+        name: msg_signature
+        required: true
+        type: string
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AppletsCallbackDta'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      summary: 小程序数据回调的数据
+      tags:
+      - API Client
+      - API Client的小程序管理
+  /v1/api/applets/parse:
+    post:
+      consumes:
+      - application/json
+      description: 小程序解析
+      operationId: APIAppletsParse
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AppletsParseReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      summary: 小程序解析
+      tags:
+      - API Client
+      - API Client的小程序管理
+  /v1/api/gzh/event:
+    get:
+      consumes:
+      - application/json
+      description: 公众号的事件
+      operationId: APIGzhEvent
+      parameters:
+      - description: appid
+        in: query
+        name: appid
+        required: true
+        type: string
+      - description: openid
+        in: query
+        name: openid
+        required: true
+        type: string
+      - description: unionid
+        in: query
+        name: unionid
+        required: true
+        type: string
+      - description: 是否订阅：0-取消订阅，1-订阅
+        in: query
+        name: is_follow
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      summary: 公众号的事件
+      tags:
+      - API Client
+      - API Client的公众号管理
+  /v1/api/user/wxBind:
+    post:
+      consumes:
+      - application/json
+      description: 用户的微信绑定
+      operationId: APIUserWxBind
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.WxBindingCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      summary: 用户的微信绑定
+      tags:
+      - API Client
+      - API Client的用户管理
+  /v1/web/appletsParse/list:
+    get:
+      consumes:
+      - application/json
+      description: 小程序解析列表
+      operationId: WebAppletsParseList
+      parameters:
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.AppletsParse'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 小程序解析列表
+      tags:
+      - WEB Client
+      - WEB Client的小程序解析管理
+  /v1/web/complaintRecord/create:
+    post:
+      consumes:
+      - application/json
+      description: 投诉创建
+      operationId: WebComplaintRecordCreate
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ComplaintRecordCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.ComplaintRecord'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 投诉创建
+      tags:
+      - WEB Client
+      - WEB Client的投诉管理
+  /v1/web/complaintRecord/list:
+    get:
+      consumes:
+      - application/json
+      description: 投诉列表
+      operationId: WebComplaintRecordList
+      parameters:
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.ComplaintRecord'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 投诉列表
+      tags:
+      - WEB Client
+      - WEB Client的投诉管理
+  /v1/web/complaintRecord/state:
+    put:
+      consumes:
+      - application/json
+      description: 只允许客服账号修改
+      operationId: WebComplaintRecordState
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ComplaintRecordStateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 投诉状态
+      tags:
+      - WEB Client
+      - WEB Client的投诉管理
+  /v1/web/config/audit:
+    get:
+      consumes:
+      - application/json
+      description: 是否审核
+      operationId: WebConfigIsAudit
+      parameters:
+      - description: 版本
+        in: query
+        name: version
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 是否审核
+      tags:
+      - WEB Client
+      - WEB Client的配置管理
+  /v1/web/config/key:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        可用的key：
+        审核版本：audit_version
+        积分详情：integral_details
+        积分详情的结构的字段说明：
+        initial-初始，attenGzh-关注公众号公众号，bindRbt-绑定机器人，inviteFriends-邀请好友
+        help-助力，helpLaunch-助力发起，helpTop-助力置顶，helpComplaint-助力投诉
+        signIn-签到，signIn3-连续签到3天，signIn5-连续签到5天，signIn7-连续签到7天
+      operationId: WebConfigGetKey
+      parameters:
+      - description: 配置的key，支持多个同时获取
+        in: query
+        name: key
+        required: true
+        type: string
+      - description: 配置的key，支持多个同时获取
+        in: query
+        name: key
+        required: true
+        type: string
+      - description: 配置的key，支持多个同时获取
+        in: query
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取配置
+      tags:
+      - WEB Client
+      - WEB Client的配置管理
+  /v1/web/config/version:
+    put:
+      consumes:
+      - application/json
+      description: 修改审核版本
+      operationId: WebConfigEditVersion
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ConfigVersionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 修改审核版本
+      tags:
+      - WEB Client
+      - WEB Client的配置管理
+  /v1/web/enclosure/upload:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 上传附件
+      operationId: WebEnclosureUpload
+      parameters:
+      - description: 附件文件，最大20M
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Enclosure'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 上传附件
+      tags:
+      - WEB Client
+      - WEB Client的附件管理
+  /v1/web/feedback/create:
+    post:
+      consumes:
+      - application/json
+      description: 反馈建议新增
+      operationId: WebFeedbackCreate
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FeedbackCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Feedback'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 反馈建议新增
+      tags:
+      - WEB Client
+      - WEB Client的反馈建议管理
+  /v1/web/feedback/list:
+    get:
+      consumes:
+      - application/json
+      description: 反馈建议列表
+      operationId: WebFeedbackList
+      parameters:
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Feedback'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 反馈建议列表
+      tags:
+      - WEB Client
+      - WEB Client的反馈建议管理
+  /v1/web/imRecord/create:
+    post:
+      consumes:
+      - application/json
+      description: 聊天创建
+      operationId: WebIMRecordCreate
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.IMRecordCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.IMRecord'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 聊天创建
+      tags:
+      - WEB Client
+      - WEB Client的聊天管理
+  /v1/web/imRecord/list:
+    get:
+      consumes:
+      - application/json
+      description: 聊天列表
+      operationId: WebIMRecordList
+      parameters:
+      - description: 任务接取id
+        in: query
+        name: taskReceiveId
+        required: true
+        type: integer
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.IMRecord'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 聊天列表
+      tags:
+      - WEB Client
+      - WEB Client的聊天管理
+  /v1/web/integral/list:
+    get:
+      consumes:
+      - application/json
+      description: 积分列表
+      operationId: WebIntegralRecordList
+      parameters:
+      - description: 类别：1-任务，2-邀请，999-其他
+        in: query
+        name: category
+        type: integer
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.IntegralRecord'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 积分列表
+      tags:
+      - WEB Client
+      - WEB Client的积分管理
+  /v1/web/label/list:
+    get:
+      consumes:
+      - application/json
+      description: 标签列表
+      operationId: WebLabelList
+      parameters:
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Label'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 标签列表
+      tags:
+      - WEB Client
+      - WEB Client的标签管理
+  /v1/web/task/create:
+    post:
+      consumes:
+      - application/json
+      description: 任务创建
+      operationId: WebTaskCreate
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TaskCreateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.Task'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 任务创建
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/task/incrTotal:
+    put:
+      consumes:
+      - application/json
+      description: 任务数量增量
+      operationId: WebIncrTaskTotal
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TaskIncrTaskTotalReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 任务数量增量
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/task/list:
+    get:
+      consumes:
+      - application/json
+      description: 任务列表
+      operationId: WebTaskList
+      parameters:
+      - description: 查询的关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 标签id
+        in: query
+        name: labelId
+        type: integer
+      - description: 支持多个标签id
+        in: query
+        name: labelId
+        type: integer
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.Task'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 任务列表
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/task/stop:
+    put:
+      consumes:
+      - application/json
+      description: 任务停止
+      operationId: WebTaskStop
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TaskStopReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 任务停止
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/taskReceive/arrearsState:
+    put:
+      consumes:
+      - application/json
+      description: 更改任务接单欠费状态
+      operationId: WebTaskReceiveArrearsState
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TaskReceiveArrearsStateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 任务接单欠费状态
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/taskReceive/list:
+    get:
+      consumes:
+      - application/json
+      description: 任务接单列表
+      operationId: WebTaskReceiveList
+      parameters:
+      - description: 任务id
+        in: query
+        name: taskId
+        type: integer
+      - description: 第几页，大于等于1
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: 每页的大小，大于等于1
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.TaskReceive'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 任务接单列表
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/taskReceive/state:
+    put:
+      consumes:
+      - application/json
+      description: 更改任务接单状态
+      operationId: WebTaskReceiveState
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TaskReceiveStateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 任务接单状态
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/taskReceive/take:
+    post:
+      consumes:
+      - application/json
+      description: 接取任务
+      operationId: WebTaskReceiveTake
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.TaskReceiveTakeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.TaskReceive'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 接取任务
+      tags:
+      - WEB Client
+      - WEB Client的任务管理
+  /v1/web/user/info:
+    get:
+      consumes:
+      - application/json
+      description: 用户信息
+      operationId: WebUserInfo
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户信息
+      tags:
+      - WEB Client
+      - WEB Client的用户管理
+  /v1/web/user/invite:
+    get:
+      consumes:
+      - application/json
+      description: 邀请记录
+      operationId: WebUserInviteRecord
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.User'
+                  type: array
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 邀请记录
+      tags:
+      - WEB Client
+      - WEB Client的用户管理
+  /v1/web/user/minWxLogin:
+    post:
+      consumes:
+      - application/json
+      description: 小程序的登录
+      operationId: WebLogin
+      parameters:
+      - description: 登录的请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.MinWxLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.MinWxLoginRsp'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      summary: 小程序的登录
+      tags:
+      - WEB Client
+      - WEB Client的登录管理
+  /v1/web/user/phone:
+    put:
+      consumes:
+      - application/json
+      description: 解析手机号码
+      operationId: WebUserParsePhone
+      parameters:
+      - description: 请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserParsePhoneReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 解析手机号码
+      tags:
+      - WEB Client
+      - WEB Client的用户管理
+  /v1/web/user/signin:
+    get:
+      consumes:
+      - application/json
+      description: 用户签到
+      operationId: WebUserSignIn
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户签到
+      tags:
+      - WEB Client
+      - WEB Client的用户管理
+  /v1/web/user/update:
+    put:
+      consumes:
+      - application/json
+      description: 用户信息
+      operationId: WebUserUpdate
+      parameters:
+      - description: 注意，如果不需要更新，那么字段都不要传，否则会更新成默认值
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserUpdateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.User'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新信息
+      tags:
+      - WEB Client
+      - WEB Client的用户管理
+  /v1/web/user/wxCode2Session:
+    post:
+      consumes:
+      - application/json
+      description: 小程序的code换算session
+      operationId: WebWxCode2Session
+      parameters:
+      - description: 登录的请求参数
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.WxCode2SessionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 处理成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/ginx.Resp'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.WxCode2SessionRsp'
+              type: object
+        "1001":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+        "1002":
+          description: 业务逻辑处理错误
+          schema:
+            $ref: '#/definitions/ginx.Resp'
+      summary: 小程序的code换算session
+      tags:
+      - WEB Client
+      - WEB Client的登录管理
+schemes:
+- https
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: token
+    type: apiKey
+swagger: "2.0"
